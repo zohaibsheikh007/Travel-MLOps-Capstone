@@ -28,6 +28,12 @@ jobs:
       - name: Train model
         run: python "Flight Prediction/train_model.py"
 
+      - name: Run unit tests
+        run: |
+          pip install pytest
+          cd "Flight Prediction"
+          python -m pytest tests/ -v
+
       - name: Run API health check
         run: |
           python -c "
@@ -48,34 +54,52 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check for Docker Hub credentials
+        id: dockercheck
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+          if [ -z "$DOCKER_USERNAME" ]; then
+            echo "Docker Hub credentials not set - skipping image build/push."
+            echo "configured=false" >> $GITHUB_OUTPUT
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Set up Python
+        if: steps.dockercheck.outputs.configured == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Train model for Docker image
+        if: steps.dockercheck.outputs.configured == 'true'
         run: pip install -r "Flight Prediction/requirements.txt" && python "Flight Prediction/train_model.py"
 
       - name: Log in to Docker Hub
+        if: steps.dockercheck.outputs.configured == 'true'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
+        if: steps.dockercheck.outputs.configured == 'true'
         uses: docker/build-push-action@v6
         with:
           context: "./Flight Prediction"
           push: true
           tags: |
-            travelwise/flight-price-api:${{ github.sha }}
-            travelwise/flight-price-api:latest
+            ${{ secrets.DOCKER_USERNAME }}/flight-price-api:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/flight-price-api:latest
 
       - name: Update Kubernetes manifest
+        if: steps.dockercheck.outputs.configured == 'true'
         run: |
-          sed -i "s|image: .*|image: travelwise/flight-price-api:${{ github.sha }}|" "Flight Prediction/deployment.yaml"
+          sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/flight-price-api:${{ github.sha }}|" "Flight Prediction/deployment.yaml"
 
       - name: Commit updated manifest
+        if: steps.dockercheck.outputs.configured == 'true'
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
