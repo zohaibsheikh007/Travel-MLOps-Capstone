@@ -1,1 +1,13 @@
-# Track large data files normally (no Git LFS required)
+# Normalize line endings so Windows clones don't show phantom diffs.
+* text=auto eol=lf
+
+# Binary / generated artifacts should not be diffed.
+*.pkl     binary
+*.csv     text eol=lf
+*.json    text eol=lf
+*.yaml    text eol=lf
+*.yml     text eol=lf
+*.py      text eol=lf
+*.ipynb   text eol=lf
+*.md      text eol=lf
+*.ps1     text eol=crlf

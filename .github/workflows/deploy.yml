@@ -105,5 +105,19 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git add "Flight Prediction/deployment.yaml"
-          git diff --staged --quiet || git commit -m "ci: update image tag to ${{ github.sha }}"
-          git push
+          if git diff --staged --quiet; then
+            echo "No manifest changes to commit."
+            exit 0
+          fi
+          git commit -m "ci: update image tag to ${{ github.sha }}"
+          # Retry-with-rebase loop in case main moved while we were building.
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "Pushed manifest update."
+              exit 0
+            fi
+            echo "Push rejected; rebasing on top of latest main and retrying ($i/5)..."
+            git pull --rebase origin main
+          done
+          echo "Failed to push after 5 attempts." >&2
+          exit 1

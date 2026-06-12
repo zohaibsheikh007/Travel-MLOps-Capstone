@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flight-price-container
-          image: travelwise/flight-price-api:latest
+          image: sheikh007/flight-price-api:43baa9e1efbb138f8d35437ce8207ecba22780c1
           ports:
             - containerPort: 8000
           resources:
