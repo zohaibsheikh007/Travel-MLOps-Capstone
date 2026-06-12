@@ -69,8 +69,7 @@ Travel-MLOps-Capstone/
 ├── .github/workflows/deploy.yml
 ├── Jenkinsfile
 ├── scripts/push-to-github.ps1
-├── README.md                      # this file
-└── SUBMISSION_CHECKLIST.md        # what to hand in
+└── README.md                      # this file
 ```
 
 ---
