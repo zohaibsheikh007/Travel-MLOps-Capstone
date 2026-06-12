@@ -11,5 +11,13 @@ env/
 mlruns/
 airflow-docker/logs/
 airflow-docker/mlruns/
+
+# Airflow DAG runtime artefacts (regenerated on each run)
+**/airflow-docker/logs/
+**/airflow-docker/dags/data/X.csv
+**/airflow-docker/dags/data/y.csv
+**/airflow-docker/dags/data/cleaned.csv
+**/airflow-docker/dags/models/
+
 .DS_Store
 Thumbs.db
