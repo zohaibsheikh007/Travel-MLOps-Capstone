@@ -1,0 +1,8 @@
+﻿=== 09-gh-runs ===
+captured: 2026-06-12T13:16:10.8465308+05:30
+
+completed	success	ci: stash training artifacts before rebase so retry loop can recover ΓÇª	Build and Deploy Flight Price API	main	push	27401675087	4m41s	2026-06-12T07:34:29Z
+completed	success	s	Build and Deploy Flight Price API	main	push	27401355166	4m43s	2026-06-12T07:27:35Z
+completed	failure	ci: rebase-and-retry the manifest push to handle concurrent runs	Build and Deploy Flight Price API	main	push	27401255867	4m25s	2026-06-12T07:25:21Z
+completed	failure	ci: allow manual workflow_dispatch trigger	Build and Deploy Flight Price API	main	push	27400320394	4m36s	2026-06-12T07:12:09Z
+completed	success	scripts: add one-shot demo runners for Docker, K8s and Airflow stacks	Build and Deploy Flight Price API	main	push	27396303950	1m37s	2026-06-12T05:20:41Z

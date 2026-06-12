@@ -1,0 +1,8 @@
+﻿=== 11-deployment-image-tag ===
+captured: 2026-06-12T13:16:12.0364060+05:30
+
+
+Flight Prediction\deployment.yaml:19:          image: 
+sheikh007/flight-price-api:c65192c3936f89ee682285f3c57a7dcd07c11e04
+
+

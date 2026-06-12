@@ -1,0 +1,6 @@
+﻿=== 07-kubectl-svc ===
+captured: 2026-06-12T13:16:10.5506641+05:30
+
+NAME                   TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+flight-price-service   NodePort    10.96.249.5   <none>        8000:30007/TCP   133m
+kubernetes             ClusterIP   10.96.0.1     <none>        443/TCP          139m
