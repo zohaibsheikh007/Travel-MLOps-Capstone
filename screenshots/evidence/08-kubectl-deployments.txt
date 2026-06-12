@@ -1,5 +1,0 @@
-﻿=== 08-kubectl-deployments ===
-captured: 2026-06-12T13:16:10.7015725+05:30
-
-NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
-flight-price-deployment   2/2     2            2           133m

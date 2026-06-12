@@ -1,6 +1,0 @@
-﻿=== 06-kubectl-pods ===
-captured: 2026-06-12T13:16:10.4000946+05:30
-
-NAME                                      READY   STATUS    RESTARTS   AGE    IP           NODE                    NOMINATED NODE   READINESS GATES
-flight-price-deployment-7fc75d746-2ksl6   1/1     Running   0          133m   10.244.0.6   desktop-control-plane   <none>           <none>
-flight-price-deployment-7fc75d746-5xzb8   1/1     Running   0          133m   10.244.0.5   desktop-control-plane   <none>           <none>

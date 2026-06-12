@@ -1,8 +1,0 @@
-﻿=== 02-api-health ===
-captured: 2026-06-12T13:16:09.7411880+05:30
-
-GET http://localhost:8001/health
-{
-    "service":  "flight-price-api",
-    "status":  "healthy"
-}

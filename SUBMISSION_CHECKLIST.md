@@ -56,7 +56,7 @@ What to do:
    - Airflow
    - CI/CD
    - MLflow
-4. For each section, drag in the screenshots listed at the bottom of that section in `DOCUMENTATION.md`. Take the screenshots while following `RUNNING_GUIDE.md`.
+4. For each section, drag in the screenshots listed at the bottom of that section in `DOCUMENTATION.md`. Run the matching demo command (Flask, Streamlit, Docker, Kubernetes, Airflow, MLflow, GitHub Actions) and capture the screens.
 5. Share -> "Anyone with the link" -> **Viewer**.
 6. Drop the link in your Drive submission folder.
 

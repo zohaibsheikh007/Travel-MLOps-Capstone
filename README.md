@@ -70,7 +70,6 @@ Travel-MLOps-Capstone/
 ├── Jenkinsfile
 ├── scripts/push-to-github.ps1
 ├── README.md                      # this file
-├── RUNNING_GUIDE.md               # step-by-step demo runbook
 └── SUBMISSION_CHECKLIST.md        # what to hand in
 ```
 
@@ -230,8 +229,6 @@ See `SUBMISSION_CHECKLIST.md` for a printable checklist that maps every required
 For the demo video, follow `VIDEO_SCRIPT.md` — it has section-by-section talking points for a 15- to 40-minute presentation.
 
 For the screenshot-by-screenshot Google Doc, follow `DOCUMENTATION.md`.
-
-For the live demo while recording, follow `RUNNING_GUIDE.md`.
 
 ---
 
