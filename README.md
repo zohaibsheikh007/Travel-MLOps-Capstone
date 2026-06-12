@@ -70,8 +70,6 @@ Travel-MLOps-Capstone/
 ├── Jenkinsfile
 ├── scripts/push-to-github.ps1
 ├── README.md                      # this file
-├── DOCUMENTATION.md               # source for the Google Doc
-├── VIDEO_SCRIPT.md                # speaking script for the video
 ├── RUNNING_GUIDE.md               # step-by-step demo runbook
 └── SUBMISSION_CHECKLIST.md        # what to hand in
 ```
