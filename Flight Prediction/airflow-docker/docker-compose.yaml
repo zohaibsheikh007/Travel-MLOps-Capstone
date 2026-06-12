@@ -1,6 +1,6 @@
 x-airflow-common:
   &airflow-common
-  build: .
+  image: travelwise/airflow-custom:latest
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
