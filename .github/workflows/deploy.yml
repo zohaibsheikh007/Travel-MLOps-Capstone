@@ -118,6 +118,9 @@ jobs:
 
           # Retry-with-rebase loop: if main moved while we were building,
           # rebase our single commit on top of the latest tip and try again.
+          # Use `-X theirs` so that when two concurrent runs touch the same
+          # `image:` line, we keep OUR version (which corresponds to the newer
+          # commit SHA the workflow was triggered for).
           for attempt in 1 2 3 4 5; do
             if git push origin HEAD:main; then
               echo "Pushed manifest update on attempt $attempt."
@@ -125,11 +128,11 @@ jobs:
             fi
             echo "Push rejected on attempt $attempt; rebasing on origin/main..."
             git fetch origin main
-            git rebase origin/main || {
-              echo "Rebase failed - aborting."
+            if ! git rebase -X theirs origin/main; then
+              echo "Rebase failed - aborting and exiting."
               git rebase --abort || true
               exit 1
-            }
+            fi
           done
           echo "Failed to push manifest update after 5 attempts." >&2
           exit 1

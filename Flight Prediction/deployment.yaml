@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flight-price-container
-          image: sheikh007/flight-price-api:754e340d7d662cdd01de03ed3ea2ec6d099a2d2f
+          image: sheikh007/flight-price-api:bc624845bae25c9b134d9c35687a51b1c4c02516
           ports:
             - containerPort: 8000
           resources:
