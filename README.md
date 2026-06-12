@@ -222,29 +222,6 @@ Gender classifier: 70.1% accuracy / 0.7356 AUC (logistic regression on character
 
 ---
 
-## Submission instructions
-
-See `SUBMISSION_CHECKLIST.md` for a printable checklist that maps every required deliverable (Colab notebooks, GitHub repo, Google Doc, video) to a file in this repository.
-
-For the demo video, follow `VIDEO_SCRIPT.md` — it has section-by-section talking points for a 15- to 40-minute presentation.
-
-For the screenshot-by-screenshot Google Doc, follow `DOCUMENTATION.md`.
-
----
-
-## Push this repo to GitHub
-
-```powershell
-cd d:\dev\Masters\Travel-MLOps-Capstone
-.\scripts\push-to-github.ps1
-```
-
-The script handles `gh auth login`, repository creation, and the initial push. Manual fallback instructions are at the top of the script.
-
-Once pushed, the GitHub Actions workflow runs automatically on the first push.
-
----
-
 ## License
 
 MIT — for academic use.
