@@ -164,7 +164,7 @@ Each `train_model` execution registers a new version of `flight_price_model` in 
 
 ### 8. CI/CD
 
-- **GitHub Actions** (`.github/workflows/deploy.yml`) — runs on every push to `main`. Trains the model, runs tests, builds and pushes the Docker image, updates the K8s manifest with the new image tag and commits it back.
+- **GitHub Actions** (`.github/workflows/deploy.yml`) — runs on every push to `main`. Trains the model, runs tests, then builds and pushes the Docker image to Docker Hub under both `:<sha>` and `:latest`. The Kubernetes manifest tracks `:latest` with `imagePullPolicy: Always`, so a `kubectl rollout restart deployment/flight-price-deployment` picks up the new build.
 - **Jenkins** (`Jenkinsfile`) — equivalent pipeline for on-prem CI.
 
 For the GitHub Actions Docker push to work, set the repo secrets `DOCKER_USERNAME` and `DOCKER_PASSWORD`.

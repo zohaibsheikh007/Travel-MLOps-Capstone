@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   test:
@@ -94,45 +94,12 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/flight-price-api:${{ github.sha }}
             ${{ secrets.DOCKER_USERNAME }}/flight-price-api:latest
 
-      - name: Update Kubernetes manifest
+      - name: Image summary
         if: steps.dockercheck.outputs.configured == 'true'
         run: |
-          sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/flight-price-api:${{ github.sha }}|" "Flight Prediction/deployment.yaml"
-
-      - name: Commit updated manifest
-        if: steps.dockercheck.outputs.configured == 'true'
-        run: |
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-
-          # Only the manifest matters; ignore artifacts left by the train step
-          # (random_forest.pkl, scaling.pkl, feature_columns.json, etc.) so they
-          # don't block a rebase against a moved main branch.
-          git add "Flight Prediction/deployment.yaml"
-          if git diff --staged --quiet; then
-            echo "No manifest changes to commit."
-            exit 0
-          fi
-          git stash push --include-untracked --keep-index --message "ci-artifacts" || true
-          git commit -m "ci: update image tag to ${{ github.sha }}"
-
-          # Retry-with-rebase loop: if main moved while we were building,
-          # rebase our single commit on top of the latest tip and try again.
-          # Use `-X theirs` so that when two concurrent runs touch the same
-          # `image:` line, we keep OUR version (which corresponds to the newer
-          # commit SHA the workflow was triggered for).
-          for attempt in 1 2 3 4 5; do
-            if git push origin HEAD:main; then
-              echo "Pushed manifest update on attempt $attempt."
-              exit 0
-            fi
-            echo "Push rejected on attempt $attempt; rebasing on origin/main..."
-            git fetch origin main
-            if ! git rebase -X theirs origin/main; then
-              echo "Rebase failed - aborting and exiting."
-              git rebase --abort || true
-              exit 1
-            fi
-          done
-          echo "Failed to push manifest update after 5 attempts." >&2
-          exit 1
+          echo "## Docker image published" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- \`${{ secrets.DOCKER_USERNAME }}/flight-price-api:${{ github.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- \`${{ secrets.DOCKER_USERNAME }}/flight-price-api:latest\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Kubernetes manifest tracks the \`:latest\` tag, so a \`kubectl rollout restart deployment/flight-price-deployment\` is enough to pick up this build." >> "$GITHUB_STEP_SUMMARY"
